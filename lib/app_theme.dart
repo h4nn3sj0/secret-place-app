@@ -4,6 +4,7 @@ class AppTheme {
   AppTheme._();
 
   static const Color backgroundColor = Color.fromARGB(255, 255, 255, 255);
+  static const Color primaryColor = Color.fromARGB(255, 98, 50, 103);
 
   static const Color notWhite = Color(0xFFEDF0F2);
   static const Color nearlyWhite = Color(0xFFFEFEFE);

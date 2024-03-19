@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secret_place_app/app_theme.dart';
 
 class SplashView extends StatefulWidget {
   final AnimationController animationController;
@@ -62,7 +63,7 @@ class _SplashViewState extends State<SplashView> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(38.0),
-                    color: Color(0xff132137),
+                    color: AppTheme.primaryColor,
                   ),
                   child: Text(
                     "Erzähl mir mehr",

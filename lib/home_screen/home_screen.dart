@@ -1,9 +1,8 @@
 import 'package:secret_place_app/app_theme.dart';
 import 'package:secret_place_app/design_course/category_list_view.dart';
 import 'package:secret_place_app/design_course/course_info_screen.dart';
-import 'package:secret_place_app/design_course/popular_course_list_view.dart';
-import 'package:secret_place_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'design_course_app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +13,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   CategoryType categoryType = CategoryType.ui;
 
- Widget build(BuildContext context) {
+  late final now = DateTime.now();
+  late final targetTime = DateTime(2024, 9, 13, 15, 0);
+
+  Widget build(BuildContext context) {
     return Container(
       color: DesignCourseAppTheme.nearlyWhite,
       child: Scaffold(
@@ -28,10 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
                   child: Column(
                     children: <Widget>[
-                      getSearchBarUI(),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.asset(
+                          'assets/introduction_animation/mushy_forrest_transparent.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),                      
+                      getCountdown(),
                       getCategoryUI(),
                       
                     ],
@@ -53,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: Text(
-            'Category',
+            'Artists',
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w600,
@@ -75,12 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 16,
               ),
               getButtonUI(
-                  CategoryType.coding, categoryType == CategoryType.coding),
+                  CategoryType.liveact, categoryType == CategoryType.liveact),
               const SizedBox(
                 width: 16,
               ),
               getButtonUI(
-                  CategoryType.basic, categoryType == CategoryType.basic),
+                  CategoryType.artists, categoryType == CategoryType.artists),
             ],
           ),
         ),
@@ -109,20 +117,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget getButtonUI(CategoryType categoryTypeData, bool isSelected) {
     String txt = '';
     if (CategoryType.ui == categoryTypeData) {
-      txt = 'Ui/Ux';
-    } else if (CategoryType.coding == categoryTypeData) {
-      txt = 'Coding';
-    } else if (CategoryType.basic == categoryTypeData) {
-      txt = 'Basic UI';
+      txt = 'DJ';
+    } else if (CategoryType.liveact == categoryTypeData) {
+      txt = 'Live act';
+    } else if (CategoryType.artists == categoryTypeData) {
+      txt = 'Artist';
     }
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
             color: isSelected
-                ? DesignCourseAppTheme.nearlyBlue
+                ? AppTheme.primaryColor
                 : DesignCourseAppTheme.nearlyWhite,
             borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-            border: Border.all(color: DesignCourseAppTheme.nearlyBlue)),
+            border: Border.all(color: AppTheme.primaryColor)),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -146,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     letterSpacing: 0.27,
                     color: isSelected
                         ? DesignCourseAppTheme.nearlyWhite
-                        : DesignCourseAppTheme.nearlyBlue,
+                        : AppTheme.primaryColor,
                   ),
                 ),
               ),
@@ -157,75 +165,40 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget getSearchBarUI() {
+  Widget getCountdown() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(top: 16.0, bottom: 18),
+      child: Column(
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width * 0.75,
-            height: 64,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8, bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor('#F8FAFB'),
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(13.0),
-                    bottomLeft: Radius.circular(13.0),
-                    topLeft: Radius.circular(13.0),
-                    topRight: Radius.circular(13.0),
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SlideCountdownSeparated(  
+                duration: targetTime.difference(now),
+                separatorType: SeparatorType.title,
+                durationTitle: DurationTitle.enShort(),
+                decoration: const BoxDecoration(
+                  color: AppTheme.primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 16, right: 16),
-                        child: TextFormField(
-                          style: TextStyle(
-                            fontFamily: 'WorkSans',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: DesignCourseAppTheme.nearlyBlue,
-                          ),
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            labelText: 'Search for course',
-                            border: InputBorder.none,
-                            helperStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: HexColor('#B9BABC'),
-                            ),
-                            labelStyle: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              letterSpacing: 0.2,
-                              color: HexColor('#B9BABC'),
-                            ),
-                          ),
-                          onEditingComplete: () {},
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 60,
-                      height: 60,
-                      child: Icon(Icons.search, color: HexColor('#B9BABC')),
-                    )
-                  ],
-                ),
+              )
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              'Der Countdown läuft',
+              style: TextStyle(
+                fontSize: 18,
+                color: AppTheme.darkText,
+                fontWeight: FontWeight.normal,
               ),
             ),
           ),
-          const Expanded(
-            child: SizedBox(),
-          )
+          
         ],
-      ),
+      )
     );
   }
 
@@ -249,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
-                  'Secret Place App',
+                  'Secret Place Festival',
                   style: TextStyle(
                     fontSize: 22,
                     color: AppTheme.darkText,
@@ -268,6 +241,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 enum CategoryType {
   ui,
-  coding,
-  basic,
+  liveact,
+  artists,
 }
