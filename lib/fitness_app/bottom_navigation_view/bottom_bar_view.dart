@@ -4,8 +4,6 @@ import 'package:secret_place_app/fitness_app/models/tabIcon_data.dart';
 import 'package:secret_place_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
-import '../models/tabIcon_data.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView(
