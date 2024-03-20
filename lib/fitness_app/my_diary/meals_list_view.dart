@@ -3,7 +3,6 @@ import 'package:secret_place_app/fitness_app/models/meals_list_data.dart';
 import 'package:secret_place_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 
 class MealsListView extends StatefulWidget {
   const MealsListView(

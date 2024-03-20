@@ -139,14 +139,6 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                 height: MediaQuery.of(context).size.height,
                 //full-screen Width with widget.screenView
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: AppTheme.white,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: AppTheme.grey.withOpacity(0.6),
-                          blurRadius: 24),
-                    ],
-                  ),
                   child: Stack(
                     children: <Widget>[
                       //this IgnorePointer we use as touch(user Interface) widget.screen View, for example scrolloffset == 1 means drawer is close we just allow touching all widget.screen View
@@ -164,8 +156,8 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                       // this just menu and arrow icon animation
                       Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).padding.top + 8,
-                            left: 8),
+                            top: MediaQuery.of(context).padding.top + 8
+                        ),
                         child: SizedBox(
                           width: AppBar().preferredSize.height - 8,
                           height: AppBar().preferredSize.height - 8,
@@ -179,7 +171,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                                 child: widget.menuView != null
                                     ? widget.menuView
                                     : AnimatedIcon(
-                                        color: AppTheme.white,
+                                        color: AppTheme.darkText,
                                         icon: widget.animatedIconData ??
                                             AnimatedIcons.arrow_menu,
                                         progress: iconAnimationController!),

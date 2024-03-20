@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:secret_place_app/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'introduction_animation/introduction_animation_screen.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
